@@ -1,5 +1,5 @@
 #Lambda base image Amazon linux
-FROM public.ecr.aws/lambda/provided as builder 
+FROM amazon/aws-lambda-provided:al2 as builder
 # Set desired PHP Version
 ARG php_version="7.3.6"
 RUN yum clean all && \
@@ -41,7 +41,7 @@ RUN mkdir /lambda-php-vendor && \
 
 
 ###### Create runtime image ######
-FROM public.ecr.aws/lambda/provided as runtime
+FROM amazon/aws-lambda-provided:al2 as runtime
 # Layer 1: PHP Binaries
 COPY --from=builder /opt/php-7-bin /var/lang
 # Layer 2: Runtime Interface Client
